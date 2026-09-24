@@ -24,6 +24,15 @@ use WordPress\AiClient\Providers\OpenAiCompatibleImplementation\AbstractOpenAiCo
 final class CloudflareModelMetadataDirectory extends AbstractOpenAiCompatibleModelMetadataDirectory
 {
     /**
+     * Include the configured model list in the SDK cache key so a settings change is visible without
+     * waiting for the default 24-hour metadata cache to expire.
+     */
+    protected function getBaseCacheKey(): string
+    {
+        return parent::getBaseCacheKey() . '_' . md5(implode('|', CloudflareConfig::getModelIds()));
+    }
+
+    /**
      * The REST API model catalog is account-scoped and is not an OpenAI `/models` endpoint. The
      * settings page therefore owns the explicit model list used by this provider.
      *

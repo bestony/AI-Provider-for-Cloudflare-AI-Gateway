@@ -130,6 +130,10 @@ function use_sdk_checks(): void
     $models = $directory->listModelMetadata();
     check(count($models) === 2, 'configured model list becomes SDK metadata');
     check($models[0]->getId() === 'openai/gpt-4.1', 'first configured model is preferred');
+    putenv('CLOUDFLARE_AI_GATEWAY_MODELS=openai/gpt-4.1');
+    $updatedDirectory = new \CloudflareAiGateway\AiProvider\Metadata\CloudflareModelMetadataDirectory();
+    check(count($updatedDirectory->listModelMetadata()) === 1, 'model metadata cache changes when settings change');
+    putenv('CLOUDFLARE_AI_GATEWAY_MODELS=openai/gpt-4.1, anthropic/claude-sonnet-4');
 
     $transporter = new class implements \WordPress\AiClient\Providers\Http\Contracts\HttpTransporterInterface {
         /** @var \WordPress\AiClient\Providers\Http\DTO\Request|null */

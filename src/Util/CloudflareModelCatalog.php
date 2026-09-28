@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Util;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 final class CloudflareModelCatalog
 {
     public static function supportsImageInput(string $modelId): bool

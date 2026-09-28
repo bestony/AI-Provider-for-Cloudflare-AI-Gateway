@@ -4,7 +4,7 @@ Tags: ai, cloudflare, ai gateway, artificial-intelligence, connector
 Requires at least: 7.0
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,12 +29,27 @@ The REST API base URL built from an Account ID is:
 
 == External Services ==
 
-This plugin sends prompts, conversation messages, optional image data, tool definitions, and model
-configuration to the configured Cloudflare AI Gateway endpoint. It receives generated responses and
-token usage from that endpoint. The endpoint and model IDs are configured by the site administrator.
+This plugin connects to Cloudflare AI Gateway, a service provided by Cloudflare, Inc. The connection
+is required to generate text. The plugin sends your prompt to Cloudflare through its API and displays
+the generated response in WordPress. No other external service is used.
 
-Cloudflare API documentation: https://developers.cloudflare.com/ai-gateway/usage/rest-api/
-Cloudflare terms: https://www.cloudflare.com/terms/
+Data is sent only when a generative AI request is made while this provider is selected or preferred,
+and only after the site administrator has configured an Account ID or a complete API base URL. Each
+request sends:
+
+* The prompt, the conversation messages, and any system instruction.
+* Attached image data, when the request contains an image and the selected model supports image input.
+* Tool and function declarations, and the JSON schema used for structured output, when the request uses them.
+* The configured model ID and the generation settings for the request, such as token limits, temperature, and stop sequences.
+* The Cloudflare API token stored in **Settings > Connectors**, sent as the Authorization header.
+
+Requests go to the Cloudflare API base URL configured by the site administrator. With only an Account
+ID configured, that is `https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/ai/v1`. A custom
+base URL points to the compatible gateway route or domain the administrator chose. Nothing is sent to
+the plugin author or to any other service.
+
+Cloudflare AI Gateway documentation: https://developers.cloudflare.com/ai-gateway/usage/rest-api/
+Cloudflare terms of use: https://www.cloudflare.com/terms/
 Cloudflare privacy policy: https://www.cloudflare.com/privacypolicy/
 
 == Frequently Asked Questions ==
@@ -50,6 +65,12 @@ The current REST chat endpoint does not expose the usual OpenAI `/models` route 
 URL. The plugin therefore uses the model IDs entered in its settings.
 
 == Changelog ==
+
+= 1.0.1 =
+* Document the Cloudflare AI Gateway external service in the readme, including the data that is sent
+  and the terms of use and privacy policy links.
+* Remove the load_plugin_textdomain() call, which WordPress.org no longer requires.
+* Add direct file access protection to every plugin PHP file.
 
 = 1.0.0 =
 * Initial release with Account ID and complete endpoint settings, model configuration, and an OpenAI

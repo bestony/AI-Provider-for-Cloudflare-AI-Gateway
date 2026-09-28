@@ -14,6 +14,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Provider;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;
 use WordPress\AiClient\Providers\Contracts\ProviderAvailabilityInterface;
 

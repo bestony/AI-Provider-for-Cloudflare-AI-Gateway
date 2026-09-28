@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Admin;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;
 
 final class CloudflareSettings

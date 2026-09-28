@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Models;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use CloudflareAiGateway\AiProvider\Provider\CloudflareProvider;
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;
 use WordPress\AiClient\Providers\Http\DTO\Request;

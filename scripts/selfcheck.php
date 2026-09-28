@@ -1,8 +1,21 @@
 <?php
 
+/**
+ * Standalone provider checks. This is a development tool and runs from the command line only.
+ *
+ * @package CloudflareAiGateway\AiProvider
+ */
+
 declare(strict_types=1);
 
-define('ABSPATH', __DIR__ . '/../');
+if (PHP_SAPI !== 'cli') {
+    exit;
+}
+
+if (!defined('ABSPATH')) {
+    define('ABSPATH', __DIR__ . '/../');
+}
+
 require_once __DIR__ . '/../src/autoload.php';
 
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;
@@ -81,7 +94,7 @@ check(CloudflareModelCatalog::rejectsSamplingParameters('openai/gpt-5.1'), 'reas
 check(CloudflareModelCatalog::rejectsSamplingParameters('gpt-5.1'), 'unprefixed reasoning model sampling is disabled');
 check(!CloudflareModelCatalog::rejectsSamplingParameters('openai/gpt-4.1'), 'regular model keeps sampling options');
 check(CloudflareModelCatalog::isPreviewOrFree('model:free'), 'free model is classified');
-check(CloudflareConfig::getUserAgent() === 'ai-provider-for-cloudflare-ai-gateway/1.0.0', 'user agent contains plugin version');
+check(CloudflareConfig::getUserAgent() === 'ai-provider-for-cloudflare-ai-gateway/1.0.1', 'user agent contains plugin version');
 check(!CloudflareConfig::hasCredentials(), 'without the AI Client no credential is reported');
 
 $sdkPath = null;

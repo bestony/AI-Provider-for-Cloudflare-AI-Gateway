@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Provider;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use CloudflareAiGateway\AiProvider\Metadata\CloudflareModelMetadataDirectory;
 use CloudflareAiGateway\AiProvider\Models\CloudflareTextGenerationModel;
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;

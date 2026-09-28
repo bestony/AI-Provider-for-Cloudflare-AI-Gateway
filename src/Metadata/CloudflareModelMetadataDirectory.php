@@ -10,6 +10,10 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Metadata;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use CloudflareAiGateway\AiProvider\Provider\CloudflareProvider;
 use CloudflareAiGateway\AiProvider\Util\CloudflareConfig;
 use CloudflareAiGateway\AiProvider\Util\CloudflareModelCatalog;

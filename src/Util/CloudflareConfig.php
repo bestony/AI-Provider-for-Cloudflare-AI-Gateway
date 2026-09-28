@@ -13,12 +13,16 @@ declare(strict_types=1);
 
 namespace CloudflareAiGateway\AiProvider\Util;
 
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 use WordPress\AiClient\AiClient;
 use WordPress\AiClient\Providers\Http\DTO\RequestOptions;
 
 final class CloudflareConfig
 {
-    public const VERSION = '1.0.0';
+    public const VERSION = '1.0.1';
     public const PROVIDER_ID = 'cloudflare_ai_gateway';
     public const OPTION_ACCOUNT_ID = 'cloudflare_ai_gateway_account_id';
     public const OPTION_BASE_URL = 'cloudflare_ai_gateway_base_url';
